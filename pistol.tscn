@@ -1,19 +1,19 @@
-[gd_scene load_steps=22 format=4 uid="uid://ckcdxugo5w7fr"]
+[gd_scene load_steps=22 format=4 uid="uid://cahguccd55fnf"]
 
-[ext_resource type="Texture2D" uid="uid://dxthxyjmld10h" path="res://Scenes/Player/textures/Sci-fi Pistol Body_BaseColor.png" id="1_7qyxq"]
-[ext_resource type="Texture2D" uid="uid://ndjtjpq0vyvf" path="res://Scenes/Player/textures/Sci-fi Pistol Body_Emissive.png" id="2_3apxv"]
-[ext_resource type="Texture2D" uid="uid://b0mlhl2x5tp4c" path="res://Scenes/Player/textures/Sci-fi Pistol Body_Roughness.png" id="3_5re7y"]
-[ext_resource type="Texture2D" uid="uid://3mk50fxjmcbm" path="res://Scenes/Player/textures/Sci-fi Pistol Body_Normal.png" id="4_krby1"]
-[ext_resource type="Texture2D" uid="uid://d4m763q6a0lwa" path="res://Scenes/Player/textures/Sci-fi Pistol Underbarrel_BaseColor.png" id="5_4uqca"]
-[ext_resource type="Texture2D" uid="uid://ckfgc7w7euk8q" path="res://Scenes/Player/textures/Sci-fi Pistol Underbarrel_Emissive.png" id="6_xvvi8"]
-[ext_resource type="Texture2D" uid="uid://bdqgq0j240ddj" path="res://Scenes/Player/textures/Sci-fi Pistol Underbarrel_Roughness.png" id="7_v7a4o"]
-[ext_resource type="Texture2D" uid="uid://b2voqxa5klvd0" path="res://Scenes/Player/textures/Sci-fi Pistol Underbarrel_Normal.png" id="8_5af5y"]
-[ext_resource type="Texture2D" uid="uid://csppnuq4gmdyk" path="res://Scenes/Player/textures/Sci-fi Pistol Magazine_BaseColor.png" id="9_3owrt"]
-[ext_resource type="Texture2D" uid="uid://cry3d144p6axi" path="res://Scenes/Player/textures/Sci-fi Pistol Magazine_Roughness.png" id="10_bcjq6"]
-[ext_resource type="Texture2D" uid="uid://br25pp8rv2g7r" path="res://Scenes/Player/textures/Sci-fi Pistol Magazine_Normal.png" id="11_w5pgg"]
-[ext_resource type="Texture2D" uid="uid://ovgukfe1at4r" path="res://Scenes/Player/textures/Sci-fi Pistol Bullet_BaseColor.png" id="12_kntqg"]
-[ext_resource type="Texture2D" uid="uid://gxuv2mgidifb" path="res://Scenes/Player/textures/Sci-fi Pistol Bullet_Roughness.png" id="13_776aa"]
-[ext_resource type="Texture2D" uid="uid://c6757wvxi11du" path="res://Scenes/Player/textures/Sci-fi Pistol Bullet_Normal.png" id="14_2qlpu"]
+[ext_resource type="Texture2D" uid="uid://dxthxyjmld10h" path="res://textures/Sci-fi Pistol Body_BaseColor.png" id="1_7qyxq"]
+[ext_resource type="Texture2D" uid="uid://ndjtjpq0vyvf" path="res://textures/Sci-fi Pistol Body_Emissive.png" id="2_3apxv"]
+[ext_resource type="Texture2D" uid="uid://b0mlhl2x5tp4c" path="res://textures/Sci-fi Pistol Body_Roughness.png" id="3_5re7y"]
+[ext_resource type="Texture2D" uid="uid://3mk50fxjmcbm" path="res://textures/Sci-fi Pistol Body_Normal.png" id="4_krby1"]
+[ext_resource type="Texture2D" uid="uid://d4m763q6a0lwa" path="res://textures/Sci-fi Pistol Underbarrel_BaseColor.png" id="5_4uqca"]
+[ext_resource type="Texture2D" uid="uid://ckfgc7w7euk8q" path="res://textures/Sci-fi Pistol Underbarrel_Emissive.png" id="6_xvvi8"]
+[ext_resource type="Texture2D" uid="uid://bdqgq0j240ddj" path="res://textures/Sci-fi Pistol Underbarrel_Roughness.png" id="7_v7a4o"]
+[ext_resource type="Texture2D" uid="uid://b2voqxa5klvd0" path="res://textures/Sci-fi Pistol Underbarrel_Normal.png" id="8_5af5y"]
+[ext_resource type="Texture2D" uid="uid://csppnuq4gmdyk" path="res://textures/Sci-fi Pistol Magazine_BaseColor.png" id="9_3owrt"]
+[ext_resource type="Texture2D" uid="uid://cry3d144p6axi" path="res://textures/Sci-fi Pistol Magazine_Roughness.png" id="10_bcjq6"]
+[ext_resource type="Texture2D" uid="uid://br25pp8rv2g7r" path="res://textures/Sci-fi Pistol Magazine_Normal.png" id="11_w5pgg"]
+[ext_resource type="Texture2D" uid="uid://ovgukfe1at4r" path="res://textures/Sci-fi Pistol Bullet_BaseColor.png" id="12_kntqg"]
+[ext_resource type="Texture2D" uid="uid://gxuv2mgidifb" path="res://textures/Sci-fi Pistol Bullet_Roughness.png" id="13_776aa"]
+[ext_resource type="Texture2D" uid="uid://c6757wvxi11du" path="res://textures/Sci-fi Pistol Bullet_Normal.png" id="14_2qlpu"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_yu808"]
 resource_name = "Sci-fi Pistol Body"
@@ -28,6 +28,9 @@ emission_enabled = true
 emission_texture = ExtResource("2_3apxv")
 normal_enabled = true
 normal_texture = ExtResource("4_krby1")
+use_z_clip_scale = true
+z_clip_scale = 0.01
+use_fov_override = true
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_vpk0a"]
 resource_name = "Sci-fi Pistol Underbarrel"

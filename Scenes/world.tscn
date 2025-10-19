@@ -1,8 +1,7 @@
-[gd_scene load_steps=8 format=3 uid="uid://c7pdssc1ow70m"]
+[gd_scene load_steps=7 format=3 uid="uid://c7pdssc1ow70m"]
 
 [ext_resource type="Script" uid="uid://c40aucj2e028o" path="res://Scenes/world.gd" id="1_5a7ea"]
 [ext_resource type="Texture2D" uid="uid://8bnltx045gvw" path="res://godot-prototype-texture/Vector/checker_black_512x512.svg" id="1_a02cp"]
-[ext_resource type="PackedScene" uid="uid://cyomswi4ra1s" path="res://Scenes/player.tscn" id="3_5a7ea"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_a02cp"]
 sky_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
@@ -31,35 +30,87 @@ shadow_enabled = true
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_5a7ea")
 
-[node name="CSGBox3D" type="CSGBox3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -9.692383, 0)
+[node name="Node3D" type="Node3D" parent="."]
+
+[node name="CSGBox3D" type="CSGBox3D" parent="Node3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -3.594027, 0)
 use_collision = true
 size = Vector3(72.19702, 2.2792969, 68.69531)
 material = SubResource("StandardMaterial3D_go701")
 
-[node name="CSGBox3D2" type="CSGBox3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 37.415955, -7.192795, 0)
+[node name="CSGBox3D2" type="CSGBox3D" parent="Node3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 37.415955, -1.094439, 0)
 use_collision = true
 size = Vector3(2.050537, 7.278473, 68.69531)
 material = SubResource("StandardMaterial3D_go701")
 
-[node name="CSGBox3D3" type="CSGBox3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -36.892212, -7.2325897, 0)
+[node name="CSGBox3D3" type="CSGBox3D" parent="Node3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -36.892212, -1.134234, 0)
 use_collision = true
 size = Vector3(2.050537, 7.198883, 68.69531)
 material = SubResource("StandardMaterial3D_go701")
 
-[node name="CSGBox3D4" type="CSGBox3D" parent="."]
-transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, -0.08032608, -6.8567963, 33.561134)
+[node name="CSGBox3D4" type="CSGBox3D" parent="Node3D"]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, -0.08032608, -0.7584405, 33.561134)
 use_collision = true
 size = Vector3(2.050537, 7.95047, 73.29248)
 material = SubResource("StandardMaterial3D_go701")
 
-[node name="CSGBox3D5" type="CSGBox3D" parent="."]
-transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, -0.08032608, -7.319992, -34.22847)
+[node name="CSGBox3D5" type="CSGBox3D" parent="Node3D"]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, -0.08032608, -1.2216363, -34.22847)
 use_collision = true
 size = Vector3(2.050537, 7.0240784, 73.29248)
 material = SubResource("StandardMaterial3D_go701")
 
-[node name="Player" parent="." instance=ExtResource("3_5a7ea")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -7.4307866, 0)
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="Main Menu" type="PanelContainer" parent="CanvasLayer"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -258.0
+offset_top = -88.5
+offset_right = 258.0
+offset_bottom = 98.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/Main Menu"]
+layout_mode = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 20
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/Main Menu/MarginContainer"]
+custom_minimum_size = Vector2(300, 0)
+layout_mode = 2
+theme_override_constants/separation = 7
+
+[node name="Label" type="Label" parent="CanvasLayer/Main Menu/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "Main Menu"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Host" type="Button" parent="CanvasLayer/Main Menu/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "Host"
+
+[node name="Join" type="Button" parent="CanvasLayer/Main Menu/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "Join"
+
+[node name="Address" type="LineEdit" parent="CanvasLayer/Main Menu/MarginContainer/VBoxContainer"]
+layout_mode = 2
+placeholder_text = "Enter address to join here"
+alignment = 1
+
+[node name="MultiplayerSpawner" type="MultiplayerSpawner" parent="."]
+_spawnable_scenes = PackedStringArray("uid://cyomswi4ra1s")
+spawn_path = NodePath("..")
+
+[connection signal="pressed" from="CanvasLayer/Main Menu/MarginContainer/VBoxContainer/Host" to="." method="_on_host_pressed"]
+[connection signal="pressed" from="CanvasLayer/Main Menu/MarginContainer/VBoxContainer/Join" to="." method="_on_join_pressed"]
