@@ -2,6 +2,8 @@ extends Node3D
 
 @onready var main_menu: PanelContainer = $"CanvasLayer/Main Menu"
 @onready var address: LineEdit = $"CanvasLayer/Main Menu/MarginContainer/VBoxContainer/Address"
+@onready var hud: Control = $CanvasLayer/HUD
+@onready var progress_bar: ProgressBar = $CanvasLayer/HUD/ProgressBar
 
 const PORT := 9999
 var enet_peer = ENetMultiplayerPeer.new()
@@ -11,11 +13,16 @@ const PLAYER = preload("uid://cyomswi4ra1s")
 
 # This function should ONLY run on the server
 func add_player(peer_id):
-	var player = PLAYER.instantiate()
+	var player = PLAYER.instantiate() as Player
 	player.name = str(peer_id) # Name the node by the peer ID for uniqueness
 	add_child(player)
-	pass
+	print("new spawn: " + str(peer_id))
+	if player.is_multiplayer_authority():
+		player.connect("health_updated", on_health_updated)
 
+func on_health_updated(value : float):
+	progress_bar.value = value
+	pass
 
 func remove_player(peer_id):
 	var player = get_node_or_null(str(peer_id))
@@ -26,8 +33,10 @@ func remove_player(peer_id):
 # --- CORRECTED HOST FUNCTION ---
 func _on_host_pressed() -> void:
 	main_menu.hide()
-	
+	hud.show()
 	enet_peer.create_server(PORT)
+	multiplayer.peer_connected.connect(add_player)
+	multiplayer.peer_disconnected.connect(remove_player)
 	multiplayer.multiplayer_peer = enet_peer
 	
 	# Spawn the host's player (ID is always 1)
@@ -35,15 +44,13 @@ func _on_host_pressed() -> void:
 	
 	# The SERVER listens for new players connecting
 	# so it can spawn them.
-	multiplayer.peer_connected.connect(add_player)
-	multiplayer.peer_disconnected.connect(remove_player)
 	#upnp_setup()
 	
 
 # --- CORRECTED JOIN FUNCTION ---
 func _on_join_pressed() -> void:
 	main_menu.hide()
-	
+	hud.show()
 	enet_peer.create_client(address.text, PORT) # Using "localhost" is fine for testing
 	multiplayer.multiplayer_peer = enet_peer
 	
@@ -74,4 +81,9 @@ func upnp_setup():
 		
 	print("Success! Public Join Address: %s" % upnp.query_external_address())
 	print("If friends cannot connect, host must manually forward port 9999.")
-	
+
+
+func _on_multiplayer_spawner_spawned(node: Node) -> void:
+	if node.is_multiplayer_authority():
+		node.connect("health_updated", on_health_updated)
+	pass # Replace with function body.

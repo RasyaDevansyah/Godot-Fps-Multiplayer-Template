@@ -1,14 +1,13 @@
 extends CharacterBody3D
 class_name Player
 
+signal health_updated(value : float)
 
 @onready var camera_3d: Camera3D = $Camera3D
 @onready var animation_player: AnimationPlayer = $Camera3D/AnimationPlayer
 @onready var gpu_particles_3d: GPUParticles3D = $Camera3D/Pistol/GPUParticles3D
 @onready var sci_fi_pistol_body: MeshInstance3D = $"Camera3D/Pistol/Sci-fi Pistol_Body"
 @onready var ray_cast_3d: RayCast3D = $Camera3D/RayCast3D
-@onready var progress_bar: ProgressBar = $Camera3D/CanvasLayer/ProgressBar
-
 
 var health := 3.0
 
@@ -67,16 +66,10 @@ func play_shoot_effects() -> void:
 @rpc("any_peer")
 func revieve_damage():
 	health -= 1
-	updateUI()
 	if health <= 0:
 		health = 3
 		position = Vector3.ZERO
-		updateUI()
-		
-func updateUI():
-	progress_bar.value = health
-	pass
-
+	emit_signal("health_updated", health)
 
 
 func _physics_process(delta: float) -> void:

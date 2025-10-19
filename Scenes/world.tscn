@@ -1,7 +1,8 @@
-[gd_scene load_steps=7 format=3 uid="uid://c7pdssc1ow70m"]
+[gd_scene load_steps=10 format=3 uid="uid://c7pdssc1ow70m"]
 
 [ext_resource type="Script" uid="uid://c40aucj2e028o" path="res://Scenes/world.gd" id="1_5a7ea"]
 [ext_resource type="Texture2D" uid="uid://8bnltx045gvw" path="res://godot-prototype-texture/Vector/checker_black_512x512.svg" id="1_a02cp"]
+[ext_resource type="Texture2D" uid="uid://csdgkoum0fl17" path="res://textures/circle_05.png" id="3_5a7ea"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_a02cp"]
 sky_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
@@ -19,6 +20,12 @@ glow_enabled = true
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_go701"]
 albedo_texture = ExtResource("1_a02cp")
 uv1_triplanar = true
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_8j60k"]
+bg_color = Color(1, 0, 0, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_fo5ed"]
+bg_color = Color(0, 1, 0, 1)
 
 [node name="World" type="Node3D"]
 script = ExtResource("1_5a7ea")
@@ -108,9 +115,48 @@ layout_mode = 2
 placeholder_text = "Enter address to join here"
 alignment = 1
 
+[node name="HUD" type="Control" parent="CanvasLayer"]
+visible = false
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="TextureRect" type="TextureRect" parent="CanvasLayer/HUD"]
+modulate = Color(1, 0, 0, 1)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = 472.0
+offset_bottom = 472.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(0.03, 0.03)
+pivot_offset = Vector2(576, 324)
+texture = ExtResource("3_5a7ea")
+stretch_mode = 5
+
+[node name="ProgressBar" type="ProgressBar" parent="CanvasLayer/HUD"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = 259.0
+offset_top = 27.0
+offset_right = 853.0
+offset_bottom = 71.0
+grow_horizontal = 2
+theme_override_styles/background = SubResource("StyleBoxFlat_8j60k")
+theme_override_styles/fill = SubResource("StyleBoxFlat_fo5ed")
+max_value = 2.999999999999991
+value = 2.999999999999991
+show_percentage = false
+
 [node name="MultiplayerSpawner" type="MultiplayerSpawner" parent="."]
 _spawnable_scenes = PackedStringArray("uid://cyomswi4ra1s")
 spawn_path = NodePath("..")
 
 [connection signal="pressed" from="CanvasLayer/Main Menu/MarginContainer/VBoxContainer/Host" to="." method="_on_host_pressed"]
 [connection signal="pressed" from="CanvasLayer/Main Menu/MarginContainer/VBoxContainer/Join" to="." method="_on_join_pressed"]
+[connection signal="spawned" from="MultiplayerSpawner" to="." method="_on_multiplayer_spawner_spawned"]
