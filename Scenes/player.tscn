@@ -1,0 +1,106 @@
+[gd_scene load_steps=9 format=3 uid="uid://cyomswi4ra1s"]
+
+[ext_resource type="Script" uid="uid://ceuglx0r3np8b" path="res://Scenes/player.gd" id="1_v0iea"]
+[ext_resource type="PackedScene" path="res://pistol.tscn" id="2_cvnsp"]
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_a02cp"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_a02cp"]
+
+[sub_resource type="Animation" id="Animation_cvnsp"]
+resource_name = "move"
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Pistol:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.25, 0.5, 0.75),
+"transitions": PackedFloat32Array(2, 0.5, 2, 0.5),
+"update": 0,
+"values": [Vector3(0.39734423, -0.2979638, -0.48922956), Vector3(0.3489613, -0.26529807, -0.48922956), Vector3(0.4084375, -0.30785382, -0.48922956), Vector3(0.43566203, -0.2465139, -0.48922956)]
+}
+
+[sub_resource type="Animation" id="Animation_6t5aa"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Pistol:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0.39734423, -0.2979638, -0.48922956)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Pistol:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, -3.1415925, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_vgqql"]
+resource_name = "shoot"
+length = 0.4
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Pistol:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.4),
+"transitions": PackedFloat32Array(0.5, 1),
+"update": 0,
+"values": [Vector3(0.39734423, -0.2979638, -0.45891643), Vector3(0.39734423, -0.2979638, -0.48922956)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Pistol:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.4),
+"transitions": PackedFloat32Array(0.5, 1),
+"update": 0,
+"values": [Vector3(-0.26428494, -3.1415925, -4.086172e-08), Vector3(0, -3.1415925, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_vgqql"]
+_data = {
+&"RESET": SubResource("Animation_6t5aa"),
+&"move": SubResource("Animation_cvnsp"),
+&"shoot": SubResource("Animation_vgqql")
+}
+
+[node name="Player" type="CharacterBody3D"]
+script = ExtResource("1_v0iea")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = SubResource("CapsuleMesh_a02cp")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("CapsuleShape3D_a02cp")
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5731206, 0)
+
+[node name="Pistol" parent="Camera3D" instance=ExtResource("2_cvnsp")]
+transform = Transform3D(-0.34035, 0, -5.1391417e-08, 0, 0.34034997, 0, 5.139142e-08, 0, -0.34034997, 0.39734423, -0.2979638, -0.48922956)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Camera3D"]
+libraries = {
+&"": SubResource("AnimationLibrary_vgqql")
+}
